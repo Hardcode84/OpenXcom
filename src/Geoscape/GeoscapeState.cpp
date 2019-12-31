@@ -124,6 +124,7 @@
 #include "../Mod/RuleInterface.h"
 #include "../fmath.h"
 #include "../fallthrough.h"
+#include "../Engine/Logger.h"
 
 namespace OpenXcom
 {
@@ -450,9 +451,12 @@ void GeoscapeState::blit()
  */
 void GeoscapeState::handle(Action *action)
 {
+	if (_game->_startLogging) { Log(LOG_INFO) << "GeoscapeState::handle() ---BEGIN "; }
 	if (_dogfights.size() == _minimizedDogfights)
 	{
+		if (_game->_startLogging) { Log(LOG_INFO) << "GeoscapeState::handle() ---TEST BEGIN "; }
 		State::handle(action);
+		if (_game->_startLogging) { Log(LOG_INFO) << "GeoscapeState::handle() ---TEST END "; }
 	}
 
 	if (action->getDetails()->type == SDL_KEYDOWN)
@@ -599,6 +603,7 @@ void GeoscapeState::handle(Action *action)
 		}
 		_minimizedDogfights = minimizedDogfightsCount();
 	}
+	if (_game->_startLogging) { Log(LOG_INFO) << "GeoscapeState::handle() ---END "; }
 }
 
 /**
@@ -658,7 +663,9 @@ void GeoscapeState::init()
  */
 void GeoscapeState::think()
 {
+	if (_game->_startLogging) { Log(LOG_INFO) << "GeoscapeState::think() ---BEGIN and TEST BEGIN "; }
 	State::think();
+	if (_game->_startLogging) { Log(LOG_INFO) << "GeoscapeState::think() ---TEST END "; }
 
 	_zoomInEffectTimer->think(this, 0);
 	_zoomOutEffectTimer->think(this, 0);
@@ -689,6 +696,7 @@ void GeoscapeState::think()
 			_popups.erase(_popups.begin());
 		}
 	}
+	if (_game->_startLogging) { Log(LOG_INFO) << "GeoscapeState::think() ---END "; }
 }
 
 /**

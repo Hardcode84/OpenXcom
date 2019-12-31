@@ -37,6 +37,7 @@
 #include "../Interface/FpsCounter.h"
 #include "../Savegame/SavedBattleGame.h"
 #include "../Mod/RuleInterface.h"
+#include "../Engine/Logger.h"
 
 namespace OpenXcom
 {
@@ -295,6 +296,14 @@ void State::init()
  */
 void State::think()
 {
+	if (_game->_startLogging)
+	{
+		Log(LOG_INFO) << "State::think() 100 " << _surfaces.size();
+		for (std::vector<Surface *>::iterator i = _surfaces.begin(); i != _surfaces.end(); ++i)
+		{
+			Log(LOG_INFO) << "State::think() 150, surface type = " << typeid(*(*i)).name();
+		}
+	}
 	for (std::vector<Surface*>::iterator i = _surfaces.begin(); i != _surfaces.end(); ++i)
 		(*i)->think();
 }
@@ -308,6 +317,14 @@ void State::handle(Action *action)
 {
 	if (!_modal)
 	{
+		if (_game->_startLogging)
+		{
+			Log(LOG_INFO) << "State::handle() 200, _surfaces.size()= " << _surfaces.size();
+			for (std::vector<Surface *>::reverse_iterator iq = _surfaces.rbegin(); iq != _surfaces.rend(); ++iq)
+			{
+				Log(LOG_INFO) << "State::handle() 250, surface type = " << typeid(*(*iq)).name();
+			}
+		}
 		for (std::vector<Surface*>::reverse_iterator i = _surfaces.rbegin(); i != _surfaces.rend(); ++i)
 		{
 			InteractiveSurface* j = dynamic_cast<InteractiveSurface*>(*i);

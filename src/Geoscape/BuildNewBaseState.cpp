@@ -38,6 +38,7 @@
 #include "../Mod/RuleInterface.h"
 #include "../Mod/RuleGlobe.h"
 #include "../Mod/Texture.h"
+#include "../Engine/Logger.h"
 
 namespace OpenXcom
 {
@@ -397,6 +398,8 @@ void BuildNewBaseState::btnCancelClick(Action *)
 {
 	delete _base;
 	_game->popState();
+	Log(LOG_INFO) << "BuildNewBaseState::btnCancelClick()  start logging!";
+	_game->_startLogging = true;
 }
 
 /**

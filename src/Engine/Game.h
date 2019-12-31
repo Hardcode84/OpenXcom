@@ -55,6 +55,7 @@ private:
 	static const double VOLUME_GRADIENT;
 
 public:
+	bool _startLogging;
 	/// Creates a new game and initializes SDL.
 	Game(const std::string &title);
 	/// Cleans up all the game's resources and shuts down SDL.
